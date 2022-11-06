@@ -1,0 +1,8 @@
+name: ImmerNochNoahSMP
+author: ImmerNochNoah
+version: 1.0
+main: net.senoxplays.Main
+api-version: 1.18
+
+commands:
+  prefix:
