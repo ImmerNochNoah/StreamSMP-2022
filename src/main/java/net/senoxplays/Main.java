@@ -21,7 +21,7 @@ public class Main extends JavaPlugin {
     }
 
     public static String getVersion() {
-        return "0.0.2";
+        return "0.0.3";
     }
 
     public static HashMap<String, String> playerPrefix = new HashMap<>();

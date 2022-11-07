@@ -7,7 +7,10 @@ import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Sleep {
 
@@ -37,7 +40,7 @@ public class Sleep {
                         sleepingPlayer.add(p);
 
                         Bukkit.getOnlinePlayers().forEach(all -> {
-                            all.sendMessage(Main.getPrefix() + " §8[§e" + sleepingPlayer.size() + " §7/ §e" + opx2 + "§8]");
+                            all.sendMessage(Main.getPrefix() + " §aSchlafen: §8[§e" + sleepingPlayer.size() + " §7/ §e" + opx2 + "§8]");
                         });
 
                         if (opx2 <= sleepingPlayer.size()) {
