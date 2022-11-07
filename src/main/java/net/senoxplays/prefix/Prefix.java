@@ -10,7 +10,7 @@ import org.bukkit.scoreboard.Team;
 
 public class Prefix {
     public static ScoreboardManager manager = Bukkit.getScoreboardManager();
-    public static Scoreboard board = manager.getMainScoreboard();
+    public static Scoreboard board = manager.getNewScoreboard();
 
     public void setPlayerPrefix(Player p, String prefix) {
         if (!Main.playerPrefix.containsKey(p)) {
@@ -21,11 +21,6 @@ public class Prefix {
         setPlayerTeams(p);
     }
 
-    public void setAllPlayerTeams() {
-        for(Player online : Bukkit.getOnlinePlayers()){
-            online.setScoreboard(board);
-        }
-    }
     public void setPlayerTeams(Player p) {
         Team team = board.getTeam(p.getName());
 
@@ -35,6 +30,11 @@ public class Prefix {
 
         team.addPlayer(p);
         team.setPrefix(Main.getPlayerPrefix(p));
+
+        updateTablistPrefix();
+    }
+
+    public void updateTablistPrefix() {
         for(Player online : Bukkit.getOnlinePlayers()){
             online.setScoreboard(board);
         }

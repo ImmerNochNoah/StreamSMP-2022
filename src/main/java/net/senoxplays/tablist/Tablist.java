@@ -5,7 +5,7 @@ import org.bukkit.entity.Player;
 
 public class Tablist {
 
-    public void setTablist(Player p) {
+    public static void setTablist(Player p) {
         p.setPlayerListHeaderFooter("\n§b§lStreamSMP\n", "\n§7immernochnoah.de \n§e" + Main.getVersion() + "\n ");
     }
 }

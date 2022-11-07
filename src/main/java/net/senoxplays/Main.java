@@ -1,9 +1,9 @@
 package net.senoxplays;
 
+import net.senoxplays.commands.KillCmd;
 import net.senoxplays.commands.PrefixCmd;
-import net.senoxplays.listeners.OnPlayerChatEvent;
-import net.senoxplays.listeners.OnPlayerInteractEvent;
-import net.senoxplays.listeners.OnPlayerJoinQuitEvent;
+import net.senoxplays.commands.VoteCmd;
+import net.senoxplays.listeners.*;
 import net.senoxplays.prefix.Prefix;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -21,23 +21,27 @@ public class Main extends JavaPlugin {
     }
 
     public static String getVersion() {
-        return "0.0.1";
+        return "0.0.2";
     }
 
     public static HashMap<String, String> playerPrefix = new HashMap<>();
 
     @Override
     public void onEnable() {
-        Bukkit.setWhitelist(true);
         instance = this;
 
         Bukkit.getPluginManager().registerEvents(new OnPlayerChatEvent(), this);
         Bukkit.getPluginManager().registerEvents(new OnPlayerInteractEvent(), this);
         Bukkit.getPluginManager().registerEvents(new OnPlayerJoinQuitEvent(), this);
+        Bukkit.getPluginManager().registerEvents(new OnPlayerBedEnterEvent(), this);
+        Bukkit.getPluginManager().registerEvents(new OnPlayerBedLeaveEvent(), this);
 
         getCommand("prefix").setExecutor(new PrefixCmd());
+        getCommand("kill").setExecutor(new KillCmd());
+        getCommand("vote").setExecutor(new VoteCmd());
 
         serverRestart();
+
     }
 
     public static Main getInsatnce() {

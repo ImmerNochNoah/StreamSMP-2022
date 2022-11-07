@@ -3,6 +3,7 @@ package net.senoxplays.listeners;
 import net.senoxplays.Main;
 import net.senoxplays.prefix.Prefix;
 import net.senoxplays.tablist.Tablist;
+import net.senoxplays.vote.Weather;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -31,12 +32,11 @@ public class OnPlayerJoinQuitEvent implements Listener {
                     });
                 }
 
-                Tablist tablist = new Tablist();
-                tablist.setTablist(p);
+                Tablist.setTablist(p);
 
                 Prefix prefix = new Prefix();
                 prefix.setPlayerTeams(p);
-                prefix.setAllPlayerTeams();
+
             }
         }.runTaskLater(Main.getInsatnce(), 10);
     }
@@ -48,5 +48,7 @@ public class OnPlayerJoinQuitEvent implements Listener {
         Bukkit.getOnlinePlayers().forEach(onlinePlayer -> {
             onlinePlayer.sendMessage(Main.getPlayerPrefix(p) + "§f" + p.getName() + " §ehat den Server verlassen. :(");
         });
+
+        Weather.weatherVotes.remove(p);
     }
 }
