@@ -35,7 +35,7 @@ public class Weather {
     }
 
     public static void clearWeather() {
-        Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "/weather clear 900");
+        Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "weather clear 900");
         Bukkit.getOnlinePlayers().forEach(all -> {
             all.sendMessage(Main.getPrefix() + " §a15 Minuten wurde der Regen ausgestellt.");
         });
