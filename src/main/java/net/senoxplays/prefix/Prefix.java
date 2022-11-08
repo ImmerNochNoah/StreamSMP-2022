@@ -23,14 +23,11 @@ public class Prefix {
 
     public void setPlayerTeams(Player p) {
         Team team = board.getTeam(p.getName());
-
         if (team == null) {
             team = board.registerNewTeam(p.getName());
         }
-
         team.addPlayer(p);
         team.setPrefix(Main.getPlayerPrefix(p));
-
         updateTablistPrefix();
     }
 

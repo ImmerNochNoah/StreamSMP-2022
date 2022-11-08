@@ -22,7 +22,7 @@ public class Main extends JavaPlugin {
     }
 
     public static String getVersion() {
-        return "0.0.4-alpha";
+        return "0.0.5-alpha";
     }
 
     public static HashMap<String, String> playerPrefix = new HashMap<>();

@@ -15,6 +15,7 @@ import java.util.Map;
 public class Sleep {
 
     public static ArrayList<Player> sleepingPlayer = new ArrayList<>();
+    static Map<String, Long> cooldown = new HashMap<String, Long>();
 
     public static void enterBed(Player p) {
         new BukkitRunnable() {
@@ -32,10 +33,7 @@ public class Sleep {
                         skipNight();
                     } else {
                         if (sleepingPlayer.size() == 0) {
-                            Bukkit.getOnlinePlayers().forEach(all -> {
-                                all.sendMessage(Main.getPrefix() + " " + Main.getPlayerPrefix(p) + "§f" + p.getName() + " §7möchte Schlafen!");
-                                all.playSound(all.getLocation(), Sound.BLOCK_NOTE_BLOCK_PLING, 1f ,1f);
-                            });
+                            sendSleepMessage(p);
                         }
                         sleepingPlayer.add(p);
 
@@ -53,9 +51,9 @@ public class Sleep {
     }
 
     public static void skipNight() {
-        for(World worlds : Bukkit.getWorlds()){
-            worlds.setTime(200);
-        }
+        Bukkit.getWorld("world").setTime(200);
+        Bukkit.getWorld("world").setClearWeatherDuration(1200 * 3);
+
         if (sleepingPlayer.size() > 0) {
             sleepingPlayer.clear();
         }
@@ -67,6 +65,22 @@ public class Sleep {
     public static void quitBed(Player p) {
         if (sleepingPlayer.contains(p)) {
             sleepingPlayer.remove(p);
+        }
+    }
+
+    private static void sendSleepMessage(Player p) {
+        if (!cooldown.containsKey("sleep_message_send")) {
+            Bukkit.getOnlinePlayers().forEach(all -> {
+                all.sendMessage(Main.getPrefix() + " " + Main.getPlayerPrefix(p) + "§f" + p.getName() + " §7möchte Schlafen!");
+                all.playSound(all.getLocation(), Sound.BLOCK_NOTE_BLOCK_PLING, 1f ,1f);
+            });
+            cooldown.put("sleep_message_send", System.currentTimeMillis() + (10 * 1000));
+        } else {
+            if (cooldown.get("sleep_message_send") < System.currentTimeMillis()) {
+                cooldown.clear();
+
+                sendSleepMessage(p);
+            }
         }
     }
 }
