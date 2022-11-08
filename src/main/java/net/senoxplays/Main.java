@@ -1,5 +1,6 @@
 package net.senoxplays;
 
+import com.google.common.eventbus.DeadEvent;
 import net.senoxplays.commands.KillCmd;
 import net.senoxplays.commands.PrefixCmd;
 import net.senoxplays.commands.VoteCmd;
@@ -21,7 +22,7 @@ public class Main extends JavaPlugin {
     }
 
     public static String getVersion() {
-        return "0.0.3";
+        return "0.0.4-alpha";
     }
 
     public static HashMap<String, String> playerPrefix = new HashMap<>();
@@ -35,6 +36,7 @@ public class Main extends JavaPlugin {
         Bukkit.getPluginManager().registerEvents(new OnPlayerJoinQuitEvent(), this);
         Bukkit.getPluginManager().registerEvents(new OnPlayerBedEnterEvent(), this);
         Bukkit.getPluginManager().registerEvents(new OnPlayerBedLeaveEvent(), this);
+        Bukkit.getPluginManager().registerEvents(new OnPlayerDeathEvent(), this);
 
         getCommand("prefix").setExecutor(new PrefixCmd());
         getCommand("kill").setExecutor(new KillCmd());

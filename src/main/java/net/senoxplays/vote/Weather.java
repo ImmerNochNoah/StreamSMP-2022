@@ -35,15 +35,19 @@ public class Weather {
                 return;
             }
             int opx2 = op / 2;
-
-            TextComponent tc = new TextComponent();
-            Bukkit.getOnlinePlayers().forEach(all -> {
-                tc.setText(Main.getPrefix() + " " + Main.getPlayerPrefix(p) + "§f" + p.getName() + " §7ist dafür, dass das Wetter gecleart wird. \n    §8[§aKLICKE HIER UM DAFÜR ZU VOTEN§8]");
-                tc.setBold(true);
-                tc.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/vote weather clear"));
-                all.spigot().sendMessage(tc);
-                all.sendMessage(Main.getPrefix() + " §6Vote: §8[§e" + weatherVotes.size() + " §7/ §e" + opx2 + "§8]");
-            });
+            if (weatherVotes.size() == 1) {
+                TextComponent tc = new TextComponent();
+                Bukkit.getOnlinePlayers().forEach(all -> {
+                    tc.setText(Main.getPrefix() + " " + Main.getPlayerPrefix(p) + "§f" + p.getName() + " §7ist dafür, dass das Wetter gecleart wird. \n    §8[§aKLICKE HIER UM DAFÜR ZU VOTEN§8]");
+                    tc.setBold(true);
+                    tc.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/vote weather clear"));
+                    all.spigot().sendMessage(tc);
+                });
+            } else {
+                Bukkit.getOnlinePlayers().forEach(all -> {
+                    all.sendMessage(Main.getPrefix() + " §6Vote: §8[§e" + weatherVotes.size() + " §7/ §e" + opx2 + "§8]");
+                });
+            }
 
             if (opx2 == weatherVotes.size()) {
                 clearWeather();
