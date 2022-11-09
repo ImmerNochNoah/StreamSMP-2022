@@ -1,7 +1,10 @@
 package net.senoxplays;
 
 import com.google.common.eventbus.DeadEvent;
+import com.google.gson.Gson;
+import net.senoxplays.chest_protection.ChestProtection;
 import net.senoxplays.commands.KillCmd;
+import net.senoxplays.commands.LockCmd;
 import net.senoxplays.commands.PrefixCmd;
 import net.senoxplays.commands.VoteCmd;
 import net.senoxplays.listeners.*;
@@ -22,7 +25,7 @@ public class Main extends JavaPlugin {
     }
 
     public static String getVersion() {
-        return "0.0.5-alpha";
+        return "0.0.6-alpha";
     }
 
     public static HashMap<String, String> playerPrefix = new HashMap<>();
@@ -37,13 +40,23 @@ public class Main extends JavaPlugin {
         Bukkit.getPluginManager().registerEvents(new OnPlayerBedEnterEvent(), this);
         Bukkit.getPluginManager().registerEvents(new OnPlayerBedLeaveEvent(), this);
         Bukkit.getPluginManager().registerEvents(new OnPlayerDeathEvent(), this);
+        Bukkit.getPluginManager().registerEvents(new OnPlayerBreakBlockEvent(), this);
 
         getCommand("prefix").setExecutor(new PrefixCmd());
         getCommand("kill").setExecutor(new KillCmd());
         getCommand("vote").setExecutor(new VoteCmd());
+        getCommand("lock").setExecutor(new LockCmd());
 
+        ChestProtection.loadProtectedChestsFromFile();
+        ChestProtection.startAutosaveProtectedChests();
+
+        System.out.println(getPluginPath());
         serverRestart();
+    }
 
+    @Override
+    public void onDisable() {
+        ChestProtection.saveProtectedChestsToFile();
     }
 
     public static Main getInsatnce() {
@@ -69,6 +82,10 @@ public class Main extends JavaPlugin {
                 Bukkit.getServer().shutdown();
             }
         }, 0, 20);
+    }
+
+    public static String getPluginPath() {
+        return System.getProperty("user.dir")+ "/plugins/";
     }
 
 }
