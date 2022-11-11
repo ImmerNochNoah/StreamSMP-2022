@@ -2,6 +2,7 @@ package net.senoxplays.chest_protection;
 
 import com.google.gson.Gson;
 import net.senoxplays.Main;
+import net.senoxplays.api.BlockRadius;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -37,7 +38,7 @@ public class ChestProtection {
                     p.sendMessage(Main.getPrefix() + " §aDu hast die Kiste gesichert.");
                     p.playSound(p.getLocation(), Sound.ENTITY_PLAYER_LEVELUP, 1f, 1f);
                 } else {
-                    p.sendMessage(Main.getPrefix() + " §cDu nur kleine Kisten sichern.");
+                    p.sendMessage(" §4Du kannst keine Doppelkisten sichern!");
                     p.playSound(p.getLocation(), Sound.ENTITY_VILLAGER_NO, 1f, 1f);
                 }
             } else {
@@ -63,6 +64,17 @@ public class ChestProtection {
             protectedChests.remove(getChestLocation(b));
             p.sendMessage(Main.getPrefix() + " §7Die Kiste ist nun §cnicht §7mehr gesichert.");
             p.playSound(p.getLocation(), Sound.ENTITY_PLAYER_LEVELUP, 1f, 1f);
+        }
+    }
+
+    public static boolean checkIfThereIsATrappedChestAround(Block b) {
+        BlockRadius br = new BlockRadius();
+        if (!br.getBlocks(b, 1).contains(Material.TRAPPED_CHEST)) {
+            System.out.println(false);
+            return false;
+        } else {
+            System.out.println(true);
+            return true;
         }
     }
 

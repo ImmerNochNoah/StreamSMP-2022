@@ -10,10 +10,14 @@ import net.senoxplays.commands.VoteCmd;
 import net.senoxplays.listeners.*;
 import net.senoxplays.prefix.Prefix;
 import org.bukkit.Bukkit;
+import org.bukkit.Material;
+import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.lang.reflect.Array;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 
@@ -23,11 +27,9 @@ public class Main extends JavaPlugin {
     public static String getPrefix() {
         return "§d§lINN.de §8»";
     }
-
     public static String getVersion() {
-        return "0.0.6-alpha";
+        return "0.0.7-alpha";
     }
-
     public static HashMap<String, String> playerPrefix = new HashMap<>();
 
     @Override
@@ -41,6 +43,9 @@ public class Main extends JavaPlugin {
         Bukkit.getPluginManager().registerEvents(new OnPlayerBedLeaveEvent(), this);
         Bukkit.getPluginManager().registerEvents(new OnPlayerDeathEvent(), this);
         Bukkit.getPluginManager().registerEvents(new OnPlayerBreakBlockEvent(), this);
+        Bukkit.getPluginManager().registerEvents(new OnPlayerBlockPlaceEvent(), this);
+        Bukkit.getPluginManager().registerEvents(new OnBlockDamageEvent(), this);
+        Bukkit.getPluginManager().registerEvents(new OnVehicleMoveEvent(), this);
 
         getCommand("prefix").setExecutor(new PrefixCmd());
         getCommand("kill").setExecutor(new KillCmd());
@@ -49,8 +54,6 @@ public class Main extends JavaPlugin {
 
         ChestProtection.loadProtectedChestsFromFile();
         ChestProtection.startAutosaveProtectedChests();
-
-        System.out.println(getPluginPath());
         serverRestart();
     }
 
@@ -87,5 +90,4 @@ public class Main extends JavaPlugin {
     public static String getPluginPath() {
         return System.getProperty("user.dir")+ "/plugins/";
     }
-
 }
