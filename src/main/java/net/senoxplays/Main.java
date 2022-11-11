@@ -1,23 +1,16 @@
 package net.senoxplays;
 
-import com.google.common.eventbus.DeadEvent;
-import com.google.gson.Gson;
 import net.senoxplays.chest_protection.ChestProtection;
 import net.senoxplays.commands.KillCmd;
 import net.senoxplays.commands.LockCmd;
 import net.senoxplays.commands.PrefixCmd;
 import net.senoxplays.commands.VoteCmd;
 import net.senoxplays.listeners.*;
-import net.senoxplays.prefix.Prefix;
 import org.bukkit.Bukkit;
-import org.bukkit.Material;
-import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import java.lang.reflect.Array;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 
@@ -46,6 +39,7 @@ public class Main extends JavaPlugin {
         Bukkit.getPluginManager().registerEvents(new OnPlayerBlockPlaceEvent(), this);
         Bukkit.getPluginManager().registerEvents(new OnBlockDamageEvent(), this);
         Bukkit.getPluginManager().registerEvents(new OnVehicleMoveEvent(), this);
+        Bukkit.getPluginManager().registerEvents(new OnVehicleCreateEvent(), this);
 
         getCommand("prefix").setExecutor(new PrefixCmd());
         getCommand("kill").setExecutor(new KillCmd());
