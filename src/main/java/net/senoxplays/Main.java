@@ -21,7 +21,7 @@ public class Main extends JavaPlugin {
         return "§d§lINN.de §8»";
     }
     public static String getVersion() {
-        return "0.0.7-alpha";
+        return "0.0.9-alpha";
     }
     public static HashMap<String, String> playerPrefix = new HashMap<>();
 

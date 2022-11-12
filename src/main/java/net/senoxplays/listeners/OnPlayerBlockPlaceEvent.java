@@ -13,7 +13,7 @@ public class OnPlayerBlockPlaceEvent implements Listener {
     public void onPlayerBlockPlayeEvent(BlockPlaceEvent event) {
         Player p = event.getPlayer();
         switch (event.getBlock().getType()) {
-            case TRAPPED_CHEST, HOPPER:
+            case TRAPPED_CHEST, HOPPER, RAIL, ACTIVATOR_RAIL, DETECTOR_RAIL, POWERED_RAIL, PISTON, STICKY_PISTON:
                 if (ChestProtection.checkIfThereIsATrappedChestAround(event.getBlock())) {
                     p.sendMessage(Main.getPrefix() + " §cDu kannst §e" + event.getBlock().getType().name() + " §chier nicht platzieren.");
                     event.setCancelled(true);

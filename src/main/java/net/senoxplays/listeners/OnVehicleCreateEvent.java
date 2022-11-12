@@ -12,7 +12,7 @@ public class OnVehicleCreateEvent implements Listener {
     @EventHandler
     public void onVehicleEvent(VehicleCreateEvent event) {
         if (event.getVehicle().getName().equalsIgnoreCase("Minecart with Hopper")) {
-            if (BlockRadius.getBlocksFromVehicle(event.getVehicle(), 1).contains(Material.TRAPPED_CHEST)) {
+            if (BlockRadius.getBlocksFromVehicle(event.getVehicle(), 3).contains(Material.TRAPPED_CHEST)) {
                 event.setCancelled(true);
             }
         }

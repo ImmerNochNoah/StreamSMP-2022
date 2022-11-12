@@ -69,11 +69,9 @@ public class ChestProtection {
 
     public static boolean checkIfThereIsATrappedChestAround(Block b) {
         BlockRadius br = new BlockRadius();
-        if (!br.getBlocks(b, 1).contains(Material.TRAPPED_CHEST)) {
-            System.out.println(false);
+        if (!br.getBlocks(b, 2).contains(Material.TRAPPED_CHEST)) {
             return false;
         } else {
-            System.out.println(true);
             return true;
         }
     }

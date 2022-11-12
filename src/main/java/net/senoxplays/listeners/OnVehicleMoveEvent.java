@@ -17,7 +17,7 @@ public class OnVehicleMoveEvent implements Listener {
     @EventHandler
     public void onVehicleMoveEvent(VehicleMoveEvent event) {
         if (event.getVehicle().getName().equalsIgnoreCase("Minecart with Hopper")) {
-            if (BlockRadius.getBlocksFromVehicle(event.getVehicle(), 1).contains(Material.TRAPPED_CHEST)) {
+            if (BlockRadius.getBlocksFromVehicle(event.getVehicle(), 3).contains(Material.TRAPPED_CHEST)) {
                 ItemStack drop = new ItemStack(Material.HOPPER_MINECART, 1);
                 World world = event.getVehicle().getWorld();
                 world.dropItem(event.getVehicle().getLocation(), drop);
