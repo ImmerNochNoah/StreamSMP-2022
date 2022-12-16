@@ -1,5 +1,6 @@
 package net.senoxplays.listeners;
 
+import net.senoxplays.beacon_chunkloader.BeaconChunkloader;
 import net.senoxplays.chest_protection.ChestProtection;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -14,6 +15,10 @@ public class OnPlayerBreakBlockEvent implements Listener {
     public void onPlayerBreakBlockEvent(BlockBreakEvent event) {
         Player p = event.getPlayer();
         Block b = event.getBlock();
+
+        if (b.getType().equals(Material.BEACON)) {
+            BeaconChunkloader.removeBeacon(p, b);
+        }
 
         if (b.getType().equals(Material.TRAPPED_CHEST)) {
             event.setCancelled(ChestProtection.breakChest(p, b));

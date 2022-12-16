@@ -1,6 +1,7 @@
 package net.senoxplays.sleep;
 
 import net.senoxplays.Main;
+import net.senoxplays.weather_system.Weather;
 import org.bukkit.Bukkit;
 import org.bukkit.Sound;
 import org.bukkit.World;
@@ -27,7 +28,6 @@ public class Sleep {
                         skipNight();
                         return;
                     }
-
                     int opx2 = op / 2;
                     if (opx2 <= sleepingPlayer.size()) {
                         skipNight();
@@ -36,11 +36,7 @@ public class Sleep {
                             sendSleepMessage(p);
                         }
                         sleepingPlayer.add(p);
-
-                        Bukkit.getOnlinePlayers().forEach(all -> {
-                            all.sendMessage(Main.getPrefix() + " §aSchlafen: §8[§e" + sleepingPlayer.size() + " §7/ §e" + opx2 + "§8]");
-                        });
-
+                        Main.sendGlobalMessage(Main.getPrefix() + " §aSchlafen: §8[§e" + sleepingPlayer.size() + " §7/ §e" + opx2 + "§8]");
                         if (opx2 <= sleepingPlayer.size()) {
                             skipNight();
                         }
@@ -52,14 +48,12 @@ public class Sleep {
 
     public static void skipNight() {
         Bukkit.getWorld("world").setTime(200);
-        Bukkit.getWorld("world").setClearWeatherDuration(1200 * 3);
-
+        Weather weather = new Weather();
+        weather.setWeatherClear(300);
         if (sleepingPlayer.size() > 0) {
             sleepingPlayer.clear();
         }
-        Bukkit.getOnlinePlayers().forEach(all -> {
-            all.sendMessage("§aDie Nacht wurde übersprungen!");
-        });
+        Main.sendGlobalMessage("§aDie Nacht wurde übersprungen!");
     }
 
     public static void quitBed(Player p) {
@@ -70,10 +64,7 @@ public class Sleep {
 
     private static void sendSleepMessage(Player p) {
         if (!cooldown.containsKey("sleep_message_send")) {
-            Bukkit.getOnlinePlayers().forEach(all -> {
-                all.sendMessage(Main.getPrefix() + " " + Main.getPlayerPrefix(p) + "§f" + p.getName() + " §7möchte Schlafen!");
-                all.playSound(all.getLocation(), Sound.BLOCK_NOTE_BLOCK_PLING, 1f ,1f);
-            });
+            Main.sendGlobalMessageSound(Main.getPrefix() + " " + Main.getPlayerPrefix(p) + "§f" + p.getName() + " §7möchte Schlafen!", Sound.BLOCK_NOTE_BLOCK_PLING);
             cooldown.put("sleep_message_send", System.currentTimeMillis() + (10 * 1000));
         } else {
             if (cooldown.get("sleep_message_send") < System.currentTimeMillis()) {

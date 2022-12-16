@@ -133,20 +133,25 @@ public class ChestProtection {
             File directory = new File(Main.getPluginPath() + "StreamSMP/");
             if (!directory.exists()) {
                 directory.mkdir();
-                File chestsFile = new File(Main.getPluginPath() + "StreamSMP/chests.txt");
+                File chestsFile = new File(Main.getPluginPath() + "StreamSMP/chests.json");
                 try {
                     chestsFile.createNewFile();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
             } else {
-                System.out.println("Lade Gesicherte Kisten.");
-                File chestsFile = new File(Main.getPluginPath() + "StreamSMP/chests.txt");
+                File chestsFile = new File(Main.getPluginPath() + "StreamSMP/chests.json");
+                if (!chestsFile.exists()) {
+                    chestsFile.createNewFile();
+                }
                 Scanner sc = new Scanner(chestsFile);
-                String hashString = sc.nextLine();
-                HashMap protectedChests1 = new Gson().fromJson(hashString, HashMap.class);
-                protectedChests.putAll(protectedChests1);
-                System.out.println(protectedChests.size() + " Kisten wurden geladen.");
+                if (!sc.hasNextLine()) {
+                    System.out.println("Es wurden keine Protected Chests in der chests.json gefunden.");
+                } else {
+                    String hashString = sc.nextLine();
+                    HashMap protectedChests1 = new Gson().fromJson(hashString, HashMap.class);
+                    protectedChests.putAll(protectedChests1);
+                }
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -156,10 +161,9 @@ public class ChestProtection {
     public static void saveProtectedChestsToFile() {
         if (!protectedChests.isEmpty()) {
             try {
-                FileWriter chestsFile = new FileWriter(Main.getPluginPath() + "StreamSMP/chests.txt");
+                FileWriter chestsFile = new FileWriter(Main.getPluginPath() + "StreamSMP/chests.json");
                 chestsFile.write(protectedChests.toString());
                 chestsFile.close();
-                System.out.println(protectedChests.size() + " Kisten wurden gespeichert.");
             } catch (Exception e) {
                 e.printStackTrace();
             }

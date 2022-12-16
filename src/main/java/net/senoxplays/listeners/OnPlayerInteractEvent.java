@@ -4,6 +4,8 @@ import net.senoxplays.chest_protection.ChestProtection;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
+import org.bukkit.block.Block;
+import org.bukkit.block.Sign;
 import org.bukkit.entity.Arrow;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -24,11 +26,11 @@ public class OnPlayerInteractEvent implements Listener {
         Player p = event.getPlayer();
         if(event.getAction() == Action.RIGHT_CLICK_BLOCK){
 
+
             if (event.getClickedBlock().getType().equals(Material.TRAPPED_CHEST)) {
                 event.setCancelled(ChestProtection.openChest(p, event.getClickedBlock()));
             }
-
-            if(p.getItemInHand().getType() == Material.AIR){
+            if(p.getItemInHand().getType() == Material.AIR) {
                 switch (event.getClickedBlock().getType()) {
                     case SPRUCE_STAIRS, COBBLESTONE_STAIRS, SANDSTONE_STAIRS, BIRCH_STAIRS, JUNGLE_STAIRS, CRIMSON_STAIRS, NETHER_BRICK_STAIRS, WARPED_STAIRS, ACACIA_STAIRS, DARK_OAK_STAIRS, OAK_STAIRS:
                         Location l = event.getClickedBlock().getLocation();

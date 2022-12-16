@@ -3,7 +3,7 @@ package net.senoxplays.listeners;
 import net.senoxplays.Main;
 import net.senoxplays.prefix.Prefix;
 import net.senoxplays.tablist.Tablist;
-import net.senoxplays.vote.Weather;
+import net.senoxplays.vote.VoteWeather;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -37,6 +37,11 @@ public class OnPlayerJoinQuitEvent implements Listener {
                 Prefix prefix = new Prefix();
                 prefix.setPlayerTeams(p);
 
+                if (Main.maintenance) {
+                    p.sendMessage(Main.getPrefix() + "§8[§eACHTUNG§8] §7DER SERVER IST GERADE IN WARTUNG! §8[§eACHTUNG§8]");
+                    p.sendMessage("§a/wartung §7um aus der Wartung zu gehen.");
+                    p.sendMessage("§eBackups werden bei Wartungen nicht gemacht oder gespeichert!");
+                }
             }
         }.runTaskLater(Main.getInsatnce(), 10);
     }
@@ -49,6 +54,6 @@ public class OnPlayerJoinQuitEvent implements Listener {
             onlinePlayer.sendMessage(Main.getPlayerPrefix(p) + "§f" + p.getName() + " §ehat den Server verlassen. :(");
         });
 
-        Weather.weatherVotes.remove(p);
+        VoteWeather.weatherVotes.remove(p);
     }
 }

@@ -1,12 +1,11 @@
 package net.senoxplays.commands;
 
 import net.senoxplays.Main;
-import net.senoxplays.vote.Weather;
+import net.senoxplays.vote.VoteWeather;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import org.jetbrains.annotations.NotNull;
 
 public class VoteCmd implements CommandExecutor {
     @Override
@@ -19,7 +18,7 @@ public class VoteCmd implements CommandExecutor {
             if (args.length == 2) {
                 if (args[0].equalsIgnoreCase("weather")) {
                     if (args[1].equalsIgnoreCase("clear")) {
-                        Weather.addWeatherVote(p);
+                        VoteWeather.addWeatherVote(p);
                     }
                 }
             }

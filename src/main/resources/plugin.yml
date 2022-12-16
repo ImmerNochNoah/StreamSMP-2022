@@ -9,3 +9,6 @@ commands:
   kill:
   vote:
   lock:
+  backup:
+  loadchunks:
+  wartung:
